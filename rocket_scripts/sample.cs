@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+/* CLASS TO TEST DIFFEREBT EVENT*/
+
 public class sample : EventTrigger
 {
     public override void OnBeginDrag(PointerEventData data)

@@ -27,7 +27,13 @@ public class lanceur : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        thrustVector = 0;
+        /*
+		LAUNCHER SCRIPT:
+		It's control rocket, 
+		it will determinate if rocket going to crash or not
+		*/
+		
+		thrustVector = 0;
         launch = false;
         control = true;
         capsuleLaunched = false;
@@ -80,7 +86,6 @@ public class lanceur : MonoBehaviour {
         if (thrustVector > MAX_THRUST) { thrustVector = MAX_THRUST;}
         launch = true;
         control = false;
-        //Takeoff();        
     }
     
     private void Takeoff()
@@ -91,8 +96,7 @@ public class lanceur : MonoBehaviour {
        while (accelerate < thrustVector)
         {
             accelerate += 0.01f;
-            //Debug.Log("accelerate : " + accelerate);
-                capsule.transform.Translate(Vector3.up * accelerate * Time.deltaTime);
+            capsule.transform.Translate(Vector3.up * accelerate * Time.deltaTime);
             if (accelerate > thrustVector)
                 {
                     capsule.transform.Translate(Vector3.up * accelerate * Time.deltaTime);
@@ -116,29 +120,28 @@ public class lanceur : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (!(capsuleLaunched)) {
-            //Debug.Log("thrust : " + thrustVector);
-            //Debug.Log("Control by launcher");
+        /*Here is a test
+		to determinate if  rocket going to crash or not */
+		if (!(capsuleLaunched)) {
             if (launch) {
                 if (accelerate < thrustVector)
                 {
-                    //accelerate += 0.01f * thrustVector;
-                    accelerate += 1;
-                    //Debug.Log("accelerate : " + accelerate);
+                   accelerate += 1;
                     capsule.transform.Translate(Vector3.up * accelerate * Time.deltaTime);
-                    if (capsule.transform.position.y > 9 && capsuleRigidBody.velocity.y < -9)
+                    // if capsule reach flight unit 9 and vertical velocitu is less than 9 
+					if (capsule.transform.position.y > 9 && capsuleRigidBody.velocity.y < -9)
                     {
-                        Debug.Log("###################[ DETACHED CAPSULE FROM LANCEUR ] ########################");
+                        // capsule maintain acceleration and it's launched
+						Debug.Log("###################[ DETACHED CAPSULE FROM LANCEUR ] ########################");
                         capsuleScript.accelerate = accelerate;
                         capsuleLaunched = true;
                     }
-                    /*else
-                    {
-                        
-                    }*/
+                                     
                     if (accelerate > thrustVector)
                     {
-                        Debug.Log("accelerate > thrustVector");
+                        // if acceleration isn't enought we cut up force and let 
+						// the rocket smash on the ground
+						Debug.Log("accelerate > thrustVector");
                         capsule.transform.Translate(Vector3.up * 0);
                         if (!crash)
                         {
@@ -146,14 +149,7 @@ public class lanceur : MonoBehaviour {
                             crash = true;
                  
                         }
-                        /*Debug.Log("crash " + crash + "||" + " capsuleScript.collide : " + capsuleScript.collide);
-                        if (!crash && capsuleScript.collide)
-                        {
-                            Debug.Log("crash sequence");
-                            capsuleScript.crashBehavior(true);
-                            crash = true;
-                        }*/
-                    }
+                   }
                 }
             }
         }

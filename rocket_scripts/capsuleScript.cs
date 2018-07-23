@@ -5,21 +5,24 @@ using UnityEngine;
 
 public class capsuleScript : MonoBehaviour {
 
+   private bool _collide;
+   private bool _detached;
+   private Rigidbody rigidBody;
+   private move moveScript;
+   private Vector3 _velocity;
+   private Transform [] rocketComponent;
+   
    public GameObject camera;
+   // this float is public to test it in Unity editor
    public float _accelerate;
-
-    private bool _collide;
-    private bool _detached;
-    private Rigidbody rigidBody;
-    private move moveScript;
-    private Vector3 _velocity;
-
-    private Transform [] rocketComponent;
-
     
     // Use this for initialization
     void Start () {
-        moveScript = new move();
+        /*
+		This script is for rocket move,
+		rocket behavior in case of crash
+		*/
+		moveScript = new move();
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.useGravity = false;
         _detached = false;
@@ -33,8 +36,9 @@ public class capsuleScript : MonoBehaviour {
 	void Update () {
         if (_accelerate != 0)
         {
-
-            transform.Translate(Vector3.up * Time.deltaTime * _accelerate);
+		    // if we got some acceleration, rocket take off with more or less
+			// forces
+			transform.Translate(Vector3.up * Time.deltaTime * _accelerate);
             Debug.Log(gameObject.name);
             moveScript.entity=gameObject;
             rigidBody.useGravity = false;
@@ -44,7 +48,7 @@ public class capsuleScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision detected");
+       Debug.Log("collision detected");
         if (other.name != "rocket_part")
         {
             this._collide = true;
@@ -56,12 +60,12 @@ public class capsuleScript : MonoBehaviour {
     {
         /*
             -- Crash behavior --
-            following case contest rocket crash is different
+            set collision between part of rocket in case of crash
          */
         foreach (Transform child in transform) {
             Rigidbody childRigidbody = child.GetComponent<Rigidbody>();
             Debug.Log("child: " + child);
-            if (useGravity) childRigidbody.useGravity = true;
+            childRigidbody.useGravity = useGravity;
             childRigidbody.isKinematic = false;
         }
     }

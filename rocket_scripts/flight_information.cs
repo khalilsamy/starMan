@@ -14,6 +14,10 @@ public class flight_information : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		/*
+		flight_information is for collect data information
+		on rocket progress for stats and debug
+		*/
 		gap = Mathf.Abs(rocket.transform.position.x - target.transform.position.x);
     }
 	

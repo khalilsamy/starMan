@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class target : MonoBehaviour {
-
+	/*This is the planet to reach so the target , for the moment just move*/
     public float speed;
 
 	// Use this for initialization

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class rocket_part : MonoBehaviour {
-    Rigidbody rb;
+    
+	/*This script is to decompose rocket in different part
+	in case of crash. It's an interested effect but should be 
+	upgrade*/
+	
+	public Rigidbody rb;
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
